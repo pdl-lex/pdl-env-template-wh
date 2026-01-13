@@ -1,0 +1,28 @@
+services:
+  caddy:
+    image: caddy:latest
+    ports:
+      - "808x:80"  # Left-hand side must match production Caddyfile
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    restart: unless-stopped
+    networks:
+      - dev-network
+
+  # Replace with your service(s)
+  mock-app:
+    image: nginx:alpine
+    volumes:
+      - ./html:/usr/share/nginx/html:ro
+    networks:
+      - dev-network
+
+networks:
+  dev-network:
+    driver: bridge
+
+volumes:
+  caddy_data:
+  caddy_config:
