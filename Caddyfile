@@ -1,12 +1,20 @@
 :80 {
-	# Redirect ohne trialing slash
+	# Redirect ohne trailing slash
 	redir /dictconsistency /dictconsistency/ permanent
+    redir /stopandgraph /stopandgraph/ permanent
 
     # dictconsistency app
     handle /dictconsistency* {
         # uri strip_prefix /dictconsistency
         reverse_proxy dictconsistency:3000
     }
+
+    # stopandgraph app
+    handle /stopandgraph* {
+        uri strip_prefix /stopandgraph
+        reverse_proxy stopandgraph:80
+    }
+    
     
     # Default: serve static files
     handle {

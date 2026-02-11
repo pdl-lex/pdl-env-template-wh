@@ -20,6 +20,14 @@ services:
     networks:
       - dev-network
 
+  stopandgraph:
+    build: ./pdl-ltlabtools-stopandgraph
+    ports:
+      - "3002:80"
+    restart: unless-stopped
+    networks:
+      - dev-network
+
 networks:
   dev-network:
     driver: bridge
