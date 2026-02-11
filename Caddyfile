@@ -1,0 +1,17 @@
+:80 {
+	# Redirect ohne trialing slash
+	redir /dictconsistency /dictconsistency/ permanent
+
+    # dictconsistency app
+    handle /dictconsistency* {
+        # uri strip_prefix /dictconsistency
+        reverse_proxy dictconsistency:3000
+    }
+    
+    # Default: serve static files
+    handle {
+        root * /srv
+        file_server
+        try_files {path} /index.html
+    }
+}
