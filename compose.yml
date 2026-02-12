@@ -13,15 +13,23 @@ services:
       - dev-network
   
   dictconsistency:
-    build: ./pdl-ltlabtools-dictconsistency
+    build: ./pdl-lt-dictconsistency
     ports:
       - "3001:3000"
     restart: unless-stopped
     networks:
       - dev-network
 
+  sgpredict:
+    build: ./pdl-lt-sg-predict
+    ports:
+      - "3003:3000"
+    restart: unless-stopped
+    networks:
+      - dev-network
+
   stopandgraph:
-    build: ./pdl-ltlabtools-stopandgraph
+    build: ./pdl-lt-stopandgraph
     ports:
       - "3002:80"
     restart: unless-stopped
