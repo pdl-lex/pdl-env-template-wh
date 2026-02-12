@@ -1,0 +1,12 @@
+# Nested tool repositories (separate repos)
+pdl-lt-dictconsistency/
+pdl-lt-stopandgraph/
+pdl-lt-sgpredict/
+pdl-lt-reflex-aggrid-wrapper/
+
+# Docker volumes
+caddy_data/
+caddy_config/
+
+# Logs
+*.log
