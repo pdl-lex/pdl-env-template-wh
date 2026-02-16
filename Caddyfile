@@ -4,11 +4,21 @@
     redir /sgpredict /sgpredict/ permanent
     redir /stopandgraph /stopandgraph/ permanent
 
-    # dictconsistency app
+
+    # dictconsistency backend (WebSocket + API)
+    handle /_event/* {
+        reverse_proxy dictconsistency:8000
+    }
+    handle /_upload {
+        reverse_proxy dictconsistency:8000
+    }
+    
+    # dictconsistency frontend
     handle /dictconsistency* {
-        # uri strip_prefix /dictconsistency
         reverse_proxy dictconsistency:3000
     }
+
+
 
     # sgpredict app
     handle /sgpredict* {
