@@ -1,7 +1,7 @@
 # Nested tool repositories (separate repos)
 pdl-lt-dictconsistency/
 pdl-lt-stopandgraph/
-pdl-lt-sgpredict/
+pdl-lt-sg-predict/
 pdl-lt-reflex-aggrid-wrapper/
 
 # Docker volumes
