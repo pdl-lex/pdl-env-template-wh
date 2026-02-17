@@ -18,12 +18,23 @@
         reverse_proxy dictconsistency:3000
     }
 
+    # sgpredict backend (WebSocket + API) – handle_path strips prefix
+    handle_path /sgpredict/_event/* {
+        reverse_proxy sgpredict:8000
+    }
+    handle_path /sgpredict/_upload/* {
+        reverse_proxy sgpredict:8000
+    }
+    handle_path /sgpredict/ping {
+        reverse_proxy sgpredict:8000
+    }
 
-
-    # sgpredict app
+    # sgpredict frontend + assets
     handle /sgpredict* {
         reverse_proxy sgpredict:3000
     }
+
+
 
     # stopandgraph app
     handle_path /stopandgraph* {
