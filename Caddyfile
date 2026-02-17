@@ -1,52 +1,34 @@
 :80 {
-    # Redirect ohne trailing slash
     redir /dictconsistency /dictconsistency/ permanent
-    redir /sgpredict /sgpredict/ permanent
     redir /stopandgraph /stopandgraph/ permanent
 
-
-    # dictconsistency backend (WebSocket + API)
     handle /_event/* {
         reverse_proxy dictconsistency:8000
     }
     handle /_upload {
         reverse_proxy dictconsistency:8000
     }
-    
-    # dictconsistency frontend
     handle /dictconsistency* {
         reverse_proxy dictconsistency:3000
     }
-
-    # sgpredict backend (WebSocket + API) – handle_path strips prefix
-    handle_path /sgpredict/_event/* {
-        reverse_proxy sgpredict:8000
-    }
-    handle_path /sgpredict/_upload/* {
-        reverse_proxy sgpredict:8000
-    }
-    handle_path /sgpredict/ping {
-        reverse_proxy sgpredict:8000
-    }
-
-    # sgpredict frontend + assets
-    handle /sgpredict* {
-        reverse_proxy sgpredict:3000
-    }
-
-
-
-    # stopandgraph app
     handle_path /stopandgraph* {
-        # uri strip_prefix /stopandgraph
         reverse_proxy stopandgraph:80
     }
-    
-    
-    # Default: serve static files
     handle {
         root * /srv
         file_server
         try_files {path} /index.html
+    }
+}
+
+:81 {
+    handle /_event/* {
+        reverse_proxy sgpredict:8000
+    }
+    handle /_upload {
+        reverse_proxy sgpredict:8000
+    }
+    handle /* {
+        reverse_proxy sgpredict:3000
     }
 }

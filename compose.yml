@@ -3,6 +3,8 @@ services:
     image: caddy:latest
     ports:
       - "8080:80"
+      - "8081:81"
+
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - ./html:/srv
@@ -24,6 +26,8 @@ services:
     build: ./pdl-lt-sg-predict
     ports:
       - "3003:3000"
+    volumes:
+      - ./pdl-lt-sg-predict/models:/app/models
     restart: unless-stopped
     networks:
       - dev-network
