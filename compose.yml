@@ -4,6 +4,9 @@ services:
     ports:
       - "8080:80"
       - "8081:81"
+      - "8082:82"
+      - "8083:83"
+      - "8084:84"
 
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile

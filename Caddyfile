@@ -1,19 +1,4 @@
 :80 {
-    redir /dictconsistency /dictconsistency/ permanent
-    redir /stopandgraph /stopandgraph/ permanent
-
-    handle /_event/* {
-        reverse_proxy dictconsistency:8000
-    }
-    handle /_upload {
-        reverse_proxy dictconsistency:8000
-    }
-    handle /dictconsistency* {
-        reverse_proxy dictconsistency:3000
-    }
-    handle_path /stopandgraph* {
-        reverse_proxy stopandgraph:80
-    }
     handle {
         root * /srv
         file_server
@@ -21,7 +6,7 @@
     }
 }
 
-:81 {
+:82 {
     handle /_event/* {
         reverse_proxy sgpredict:8000
     }
@@ -30,5 +15,23 @@
     }
     handle /* {
         reverse_proxy sgpredict:3000
+    }
+}
+
+:83 {
+    handle /_event/* {
+        reverse_proxy dictconsistency:8000
+    }
+    handle /_upload {
+        reverse_proxy dictconsistency:8000
+    }
+    handle /* {
+        reverse_proxy dictconsistency:3000
+    }
+}
+
+:84 {
+    handle /* {
+        reverse_proxy stopandgraph:80
     }
 }
